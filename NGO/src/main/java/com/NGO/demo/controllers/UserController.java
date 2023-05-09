@@ -9,47 +9,40 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.NGO.demo.entity.User;
 import com.NGO.demo.service.UserService;
 
-
-
-
 @CrossOrigin("http://localhost:4200")
 @RestController
-@RequestMapping("/api")
 public class UserController {
-
+	
 	@Autowired
 	UserService userService;
 	
-	@GetMapping("/User")
+	@GetMapping("/users")
 	public List<User> getAll() {
 		return userService.listAll();
 	}
 	
-	@GetMapping("/User/{id}")
+	@GetMapping("/users/{id}")
 	public User getOneUser(Long id) {
 		return userService.get(id);
 	}
 	
-	
-	
-	@PostMapping("/addUser")
+	@PostMapping("/user")
 	public void addUser(@RequestBody User user) {
 		userService.save(user);
 	}
 	
-	@PutMapping("/updateUser/{id}")
+	@PutMapping("/users/{id}")
 	public void updateUser (@RequestParam Long id, @RequestBody User user) {
 		userService.update(id, user);
 	}
 	
-	@DeleteMapping("/deleteUser/{id}")
+	@DeleteMapping("/users/{id}")
 	public void deleteUser (@RequestParam Long id) {
 		userService.delete(id);
 	}

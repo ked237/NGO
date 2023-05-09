@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.NGO.demo.entity.Address;
-import com.NGO.demo.exception.RessourceNotFoundException;
 import com.NGO.demo.repository.AddressRepository;
 
 
@@ -33,18 +32,12 @@ public class AddressService {
 	}
 	public void delete(Long id)
 	{
-		Optional<Address> optionalAddress = addressRepository.findById(id);
-		if(optionalAddress.isPresent()) {
 			addressRepository.deleteById(id);
-		}
-		else {
-			throw new RessourceNotFoundException("No such address found");
-		}
 	}
 	
-	public void update (Long id, Address address) {
+	public void update (Long id, Address address){
 		Optional<Address> optionalAddress = addressRepository.findById(id);
-		if (optionalAddress.isPresent()) {
+		
 			Address address2 = optionalAddress.get();
 			address2.setAddressNumber(address.getAddressNumber()); 
 			address2.setCity(address.getCity());
@@ -54,13 +47,6 @@ public class AddressService {
 			address2.setZipcode(address.getZipcode());
 			//using transactional will automatically save 
 			//addressRepository.save(address2);
-		}
-		else {
-			throw new RessourceNotFoundException ("No such address found");
-		}
-	}
-	
-
-		
+		}		
 
 }

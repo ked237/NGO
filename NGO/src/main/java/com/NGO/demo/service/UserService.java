@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.NGO.demo.entity.User;
-import com.NGO.demo.exception.RessourceNotFoundException;
 import com.NGO.demo.repository.UserRepository;
 
 @Service
@@ -32,28 +31,18 @@ public class UserService {
 		return userRepository.findById(id).get();
 	}
 	
-	public void delete(Long id)
-	{
-		Optional<User> optionalUser = userRepository.findById(id);
-		if (optionalUser.isPresent()) {
+	public void delete(Long id) {
 			userRepository.deleteById(id);
-		}
-		else {
-			throw new RessourceNotFoundException("Not such a user");
-		}
+		
 	}
 	
 	public void update(Long id, User user) {
 		Optional<User> optionalUser = userRepository.findById(id);
-		if(optionalUser.isPresent()) {
 			User user2 = optionalUser.get();
 			user2.setFirstName(user.getFirstName());
 			user2.setLastName(user.getLastName());
 			user2.setRole(user.getRole());
 			user2.setEmail(user.getEmail());
 	}
-		else {
-			throw new RessourceNotFoundException("Not such a user");
-		}
-	}
+
 }

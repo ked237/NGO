@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 
 @Entity
@@ -32,11 +34,17 @@ public class User {
 	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="email")
+	@Column(name="_email")
 	private String email;
 	
-	@Column(name="role")
+	@Column(name= "_password")
+	private String password;
+	
+	@Column(name="_role")
 	private String role;
+	
+	@Column(name="_number")
+	private Long number;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_address", referencedColumnName = "id")
@@ -46,12 +54,16 @@ public class User {
 		
 	}
 
-	public User(String firstName, String lastName, String email, String role) {
+	public User(String firstName, String lastName, String email, String password, String role, Long number,
+			Set<Address> addresses) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.password = password;
 		this.role = role;
+		this.number = number;
+		this.addresses = addresses;
 	}
 
 	/**
@@ -111,6 +123,20 @@ public class User {
 	}
 
 	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
 	 * @return the role
 	 */
 	public String getRole() {
@@ -122,6 +148,20 @@ public class User {
 	 */
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	/**
+	 * @return the number
+	 */
+	public Long getNumber() {
+		return number;
+	}
+
+	/**
+	 * @param number the number to set
+	 */
+	public void setNumber(Long number) {
+		this.number = number;
 	}
 
 	/**
@@ -137,6 +177,7 @@ public class User {
 	public void setAddresses(Set<Address> addresses) {
 		this.addresses = addresses;
 	}
+	
 	
 	
 	
